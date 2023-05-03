@@ -18,8 +18,6 @@ def analyze_sentiment(text):
     probabilities = torch.softmax(outputs.logits, dim=1).squeeze().tolist()
     return sentiment, probabilities
 
-    return {0: "negative", 1: "neutral", 2: "positive"}.get(sentiment_label)
-
 def get_image_base64_str(file_path):
     with open(file_path, "rb") as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode()
@@ -47,7 +45,7 @@ st.markdown(f'<img src="{image_base64_str}" class="logo" width="100">', unsafe_a
 st.title("Sentiment Analysis")
 
 # Input text
-input_text = st.text_input("Enter text to analyze:")
+input_text = st.text_input("Enter text to analyze:", max_chars=512)
 
 # Predict and show output
 # if input_text:
@@ -64,3 +62,5 @@ if input_text:
     st.write(f"Negative: {probabilities[0]:.4f}")
     st.write(f"Neutral: {probabilities[1]:.4f}")
     st.write(f"Positive: {probabilities[2]:.4f}")
+elif input_text and len(input_text) > 512:  # add error message
+    st.error("Input text exceeds maximum length of 512 characters.")
