@@ -1,4 +1,4 @@
-steamlit
+streamlit
 transformers
 torch
 base64
