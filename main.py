@@ -45,7 +45,7 @@ st.markdown(f'<img src="{image_base64_str}" class="logo" width="100">', unsafe_a
 st.title("Sentiment Analysis")
 
 # Input text
-input_text = st.text_input("Enter text to analyze:", max_chars=512)
+input_text = st.text_input("Enter text to analyze:", max_chars=256)
 
 # Predict and show output
 # if input_text:
@@ -62,5 +62,3 @@ if input_text:
     st.write(f"Negative: {probabilities[0]:.4f}")
     st.write(f"Neutral: {probabilities[1]:.4f}")
     st.write(f"Positive: {probabilities[2]:.4f}")
-elif input_text and len(input_text) > 512:  # add error message
-    st.error("Input text exceeds maximum length of 512 characters.")
