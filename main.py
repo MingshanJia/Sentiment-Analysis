@@ -5,8 +5,16 @@ import base64
 
 # Load pre-trained model and tokenizer
 MODEL_NAME = "cardiffnlp/twitter-roberta-base-sentiment"
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
+
+@st.cache_data
+def load_model_and_tokenizer(model_name):
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSequenceClassification.from_pretrained(model_name)
+    return tokenizer, model
+
+tokenizer, model = load_model_and_tokenizer(MODEL_NAME)
+# tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+# model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
 
 # Function to perform sentiment analysis
 def analyze_sentiment(text):
@@ -47,10 +55,6 @@ st.title("Sentiment Analysis")
 # Input text
 input_text = st.text_input("Enter text to analyze:", max_chars=256)
 
-# Predict and show output
-# if input_text:
-#     sentiment = analyze_sentiment(input_text)
-#     st.write(f"The sentiment of the text '{input_text}' is {sentiment}.")
 
 # Predict and show output
 if input_text:
